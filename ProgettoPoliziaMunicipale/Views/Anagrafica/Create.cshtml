@@ -1,0 +1,21 @@
+﻿@model AnagraficaViewModel
+
+<h2>Nuovo Trasgressore</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Cognome" class="control-label"></label>
+        <input asp-for="Cognome" class="form-control" />
+        <span asp-validation-for="Cognome" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Nome" class="control-label"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+
+    <!-- Aggiungi gli altri campi (Indirizzo, Città, Cap, CodFisc) similmente -->
+
+    <button type="submit" class="btn btn-primary">Salva</button>
+</form>

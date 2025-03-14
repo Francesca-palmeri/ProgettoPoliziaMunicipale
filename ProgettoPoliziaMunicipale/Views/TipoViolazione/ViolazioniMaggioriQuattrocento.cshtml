@@ -1,0 +1,29 @@
+﻿@model IEnumerable<dynamic>
+
+<h2>Violazioni Maggiori di 400 Euro</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cognome</th>
+            <th>Nome</th>
+            <th>Indirizzo</th>
+            <th>Data Violazione</th>
+            <th>Importo</th>
+            <th>Decurtamento Punti</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Cognome</td>
+                <td>@item.Nome</td>
+                <td>@item.Indirizzo</td>
+                <td>@item.DataViolazione</td>
+                <td>@item.Importo</td>
+                <td>@item.DecurtamentoPunti</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -41,10 +41,10 @@ public partial class Verbale
     public int? Idviolazione { get; set; }
 
     [ForeignKey("Idanagrafica")]
-    [InverseProperty("Verbales")]
+    [InverseProperty("Verbali")]
     public virtual Anagrafica? IdanagraficaNavigation { get; set; }
 
     [ForeignKey("Idviolazione")]
-    [InverseProperty("Verbales")]
+    [InverseProperty("Verbali")]
     public virtual TipoViolazione? IdviolazioneNavigation { get; set; }
 }

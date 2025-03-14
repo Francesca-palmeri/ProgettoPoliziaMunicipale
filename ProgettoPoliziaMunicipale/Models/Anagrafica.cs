@@ -41,5 +41,5 @@ public partial class Anagrafica
     public string CodFisc { get; set; } = null!;
 
     [InverseProperty("IdanagraficaNavigation")]
-    public virtual ICollection<Verbale> Verbales { get; set; } = new List<Verbale>();
+    public virtual ICollection<Verbale> Verbali { get; set; } = new List<Verbale>();
 }

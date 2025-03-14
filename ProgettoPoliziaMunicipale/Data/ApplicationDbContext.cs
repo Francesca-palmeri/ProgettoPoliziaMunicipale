@@ -16,11 +16,11 @@ public partial class ApplicationDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Anagrafica> Anagraficas { get; set; }
+    public virtual DbSet<Anagrafica> Anagrafiche { get; set; }
 
-    public virtual DbSet<TipoViolazione> TipoViolaziones { get; set; }
+    public virtual DbSet<TipoViolazione> TipoViolazioni { get; set; }
 
-    public virtual DbSet<Verbale> Verbales { get; set; }
+    public virtual DbSet<Verbale> Verbali { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -42,9 +42,9 @@ public partial class ApplicationDbContext : DbContext
         {
             entity.HasKey(e => e.Idverbale).HasName("PK__Verbale__073D2A45CF0AF481");
 
-            entity.HasOne(d => d.IdanagraficaNavigation).WithMany(p => p.Verbales).HasConstraintName("FK_Verbale_Anagrafica");
+            entity.HasOne(d => d.IdanagraficaNavigation).WithMany(p => p.Verbali).HasConstraintName("FK_Verbale_Anagrafica");
 
-            entity.HasOne(d => d.IdviolazioneNavigation).WithMany(p => p.Verbales).HasConstraintName("FK_Verbale_TipoViolazione");
+            entity.HasOne(d => d.IdviolazioneNavigation).WithMany(p => p.Verbali).HasConstraintName("FK_Verbale_TipoViolazione");
         });
 
         OnModelCreatingPartial(modelBuilder);

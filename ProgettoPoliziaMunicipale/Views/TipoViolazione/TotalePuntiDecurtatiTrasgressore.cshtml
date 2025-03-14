@@ -1,0 +1,21 @@
+﻿@model IEnumerable<dynamic>
+
+<h2>Totale Punti Decurtati per Trasgressore</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Trasgressore</th>
+            <th>Totale Punti Decurtati</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Trasgressore</td>
+                <td>@item.TotalePunti</td>
+            </tr>
+        }
+    </tbody>
+</table>

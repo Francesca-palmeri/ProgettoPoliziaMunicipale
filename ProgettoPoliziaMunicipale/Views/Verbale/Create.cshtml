@@ -1,0 +1,15 @@
+﻿@model VerbaleViewModel
+
+<h2>Nuovo Verbale</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="DataViolazione" class="control-label"></label>
+        <input asp-for="DataViolazione" class="form-control" />
+        <span asp-validation-for="DataViolazione" class="text-danger"></span>
+    </div>
+
+    <!-- Altri campi come IndirizzoViolazione, NominativoAgente, Importo, DecurtamentoPunti, etc. -->
+
+    <button type="submit" class="btn btn-primary">Salva</button>
+</form>

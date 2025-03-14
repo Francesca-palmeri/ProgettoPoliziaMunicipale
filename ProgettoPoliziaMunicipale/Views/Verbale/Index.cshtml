@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProgettoPoliziaMunicipale.Models.Verbale>
+
+@{
+    ViewData["Title"] = "Elenco Verbali";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<a href="@Url.Action("Index", "Statistiche")" class="btn btn-primary">Vai alle statistiche</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Trasgressore</th>
+            <th>Violazione</th>
+            <th>Data Violazione</th>
+            <th>Importo</th>
+            <th>Decurtamento Punti</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var verbale in Model)
+        {
+            <tr>
+                <td>@verbale.IdanagraficaNavigation.Cognome @verbale.IdanagraficaNavigation.Nome</td>
+                <td>@verbale.IdviolazioneNavigation.Descrizione</td>
+                <td>@verbale.DataViolazione.ToShortDateString()</td>
+                <td>@verbale.Importo</td>
+                <td>@verbale.DecurtamentoPunti</td>
+                <td>
+                    <a href="@Url.Action("Contestazione", "Verbale", new { id = verbale.Idverbale })">Contesta</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "Verbale")" class="btn btn-primary">Aggiungi Verbale</a>
+
+

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<dynamic>
+
+<h2>Violazioni con Più di 10 Punti Decurtati</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Data Violazione</th>
+            <th>Nominativo Agente</th>
+            <th>Importo</th>
+            <th>Decurtamento Punti</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DataViolazione</td>
+                <td>@item.NominativoAgente</td>
+                <td>@item.Importo</td>
+                <td>@item.DecurtamentoPunti</td>
+            </tr>
+        }
+    </tbody>
+</table>
