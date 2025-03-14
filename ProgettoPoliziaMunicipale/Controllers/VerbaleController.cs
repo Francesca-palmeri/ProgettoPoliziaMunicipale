@@ -32,18 +32,37 @@ public class VerbaleController : Controller
         var tipiViolazione = await _context.TipoViolazioni.ToListAsync();
 
         // Passa la lista dei tipi di violazione alla vista tramite ViewBag
-        ViewBag.TipiViolazione = new SelectList(tipiViolazione, "Idviolazione", "Descrizione");
+        ViewBag.TipiViolazione = GetTipiViolazione(tipiViolazione, "Idviolazione", "Descrizione");
 
-        return View();
+        return View(new VerbaleViewModel());
     }
+
+    private SelectList GetTipiViolazione(List<TipoViolazione> tipiViolazione, string v1, string v2)
+    {
+        // Crea una SelectList con i dati dei tipi di violazione
+        return new SelectList(tipiViolazione, v1, v2);
+    }
+
 
     // POST: Verbale/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(VerbaleViewModel viewModel)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
+            // Aggiungi il codice per loggare o visualizzare gli errori del ModelState
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine(error.ErrorMessage); // Usa un metodo di logging o di debug appropriato
+            }
+
+           
+
+            // In caso di errore, torna al form con i dati già inseriti
+            return View(viewModel);
+        }
+        else {        
             // Creazione nuova anagrafica
             var anagrafica = new Anagrafica
             {
@@ -80,11 +99,11 @@ public class VerbaleController : Controller
         }
 
         // Se il modello non è valido, ripopola ViewBag con i tipi di violazione
-        var tipiViolazione = await _context.TipoViolazioni.ToListAsync();
-        ViewBag.TipiViolazione = new SelectList(tipiViolazione, "Idviolazione", "Descrizione");
+        //var tipiViolazione = await _context.TipoViolazioni.ToListAsync();
+        //ViewBag.TipiViolazione = new SelectList(tipiViolazione, "Idviolazione", "Descrizione");
 
         // In caso di errore, torna al form con i dati già inseriti
-        return View(viewModel);
+        //return View(viewModel);
     }
 
         // Azione per visualizzare i dettagli del verbale e la possibilità di contestarlo

@@ -12,6 +12,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Id Trasgressore</th>
             <th>Trasgressore</th>
             <th>Violazione</th>
             <th>Data Violazione</th>
@@ -26,6 +27,7 @@
                 @foreach (var verbale in Model)
                 {
                     <tr>
+                        <td>@verbale.Idanagrafica</td>
                         <td>@(verbale.IdanagraficaNavigation?.Nome ?? "N/A")</td>
                         <td>@(verbale.IdanagraficaNavigation?.Cognome ?? "N/A")</td>
                         <td>@(verbale.IdviolazioneNavigation?.Descrizione ?? "N/A")</td>
@@ -33,7 +35,8 @@
                         <td>@verbale.Importo.ToString("C")</td>
                         <td>@verbale.DecurtamentoPunti</td>
                         <td>
-                          <a href="@Url.Action("Contestazione", "Verbale", new { id = verbale.Idverbale })">Contesta</a> 
+                          <a href="@Url.Action("Contestazione", "Verbale", new { id = verbale.Idverbale })">Contesta</a>
+					      <a href="@Url.Action("Delete", "Verbale", new { id = verbale.Idverbale })">Elimina</a>"
 
                         </td>
                         

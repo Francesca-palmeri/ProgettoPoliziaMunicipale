@@ -59,13 +59,9 @@
 
     <div class="form-group">
         <label for="IdViolazione">Tipo di Violazione</label>
-        <select asp-for="IdViolazione" class="form-control">
-            <option value="">Seleziona una violazione</option>
-            @foreach (var item in ViewBag.TipiViolazione)
-            {
-                <option value="@item.Value">@item.Text</option>
-            }
-        </select>
+        <label asp-for="IdViolazione" class="control-label"></label>
+        <select asp-for="IdViolazione" class="form-control" asp-items="ViewBag.TipiViolazione"></select>
+        <span asp-validation-for="IdViolazione" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Crea Verbale</button>
 </form>
