@@ -1,5 +1,44 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ProgettoPoliziaMunicipale.ViewModels.ContestazioneViewModel
+
 @{
+    ViewData["Title"] = "Contestazione Verbale";
 }
+
+<h2>Contestazione Verbale</h2>
+
+<form asp-action="SalvaContestazione" asp-controller="Verbale" method="post">
+    <input type="hidden" asp-for="IdVerbale" />
+
+    <div class="mb-3">
+        <label class="form-label">Trasgressore</label>
+        <input type="text" class="form-control" asp-for="Trasgressore" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Violazione</label>
+        <input type="text" class="form-control" asp-for="Violazione" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Data Violazione</label>
+        <input type="text" class="form-control" value="@Model.DataViolazione.ToShortDateString()" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Importo</label>
+        <input type="text" class="form-control" asp-for="Importo" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Decurtamento Punti</label>
+        <input type="text" class="form-control" asp-for="DecurtamentoPunti" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Motivo Contestazione</label>
+        <textarea class="form-control" asp-for="MotivoContestazione" rows="4" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-danger">Invia Contestazione</button>
+    <a href="@Url.Action("Index", "Verbale")" class="btn btn-secondary">Annulla</a>
+</form>

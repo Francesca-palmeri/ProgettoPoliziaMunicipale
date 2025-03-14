@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProgettoPoliziaMunicipale.Data;
 
+
+[Route("Statistiche/[action]")]
 public class StatisticheController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -10,6 +12,13 @@ public class StatisticheController : Controller
         _context = context;
     }
 
+    [HttpGet]
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    [HttpGet]
     public IActionResult VerbaliPerTrasgressore()
     {
         var verbali = _context.Verbali
@@ -20,6 +29,7 @@ public class StatisticheController : Controller
         return View(verbali);
     }
 
+    [HttpGet]
     public IActionResult PuntiDecurtatiPerTrasgressore()
     {
         var punti = _context.Verbali
@@ -30,6 +40,7 @@ public class StatisticheController : Controller
         return View(punti);
     }
 
+    [HttpGet]
     public IActionResult ViolazioniPiuDiDieciPunti()
     {
         var violazioni = _context.Verbali
@@ -40,14 +51,15 @@ public class StatisticheController : Controller
         return View(violazioni);
     }
 
+    [HttpGet]
     public IActionResult ViolazioniMaggioriDiQuattrocentoEuro()
     {
         var violazioni = _context.Verbali
           .Where(v => v.Importo >= 400)
           .Join(
               _context.Anagrafiche,
-              v => v.Idanagrafica,  // Colonna in Verbale
-              a => a.Idanagrafica,  // Colonna in Anagrafica
+              v => v.Idanagrafica,  
+              a => a.Idanagrafica, 
               (v, a) => new
               {
                   a.Cognome,

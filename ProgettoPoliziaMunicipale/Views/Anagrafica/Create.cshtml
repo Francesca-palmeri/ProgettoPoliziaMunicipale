@@ -14,8 +14,27 @@
         <input asp-for="Nome" class="form-control" />
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
+      <div class="form-group">
+        <label asp-for="Indirizzo" class="control-label"></label>
+        <input asp-for="Indirizzo" class="form-control" />
+        <span asp-validation-for="Indirizzo" class="text-danger"></span>
+    </div>
+      <div class="form-group">
+        <label asp-for="Città" class="control-label"></label>
+        <input asp-for="Città" class="form-control" />
+        <span asp-validation-for="Città" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Cap" class="control-label"></label>
+        <input asp-for="Cap" class="form-control" />
+        <span asp-validation-for="Cap" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CodFisc" class="control-label"></label>
+        <input asp-for="CodFisc" class="form-control" />
+        <span asp-validation-for="CodFisc" class="text-danger"></span>
+    </div>
 
-    <!-- Aggiungi gli altri campi (Indirizzo, Città, Cap, CodFisc) similmente -->
 
     <button type="submit" class="btn btn-primary">Salva</button>
 </form>

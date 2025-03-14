@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProgettoPoliziaMunicipale.ViewModels.TipoViolazioneViewModel>
+﻿@model List<ProgettoPoliziaMunicipale.ViewModels.TipoViolazioneViewModel>
 
 <h2>Lista Tipo Violazioni</h2>
 
@@ -13,7 +13,7 @@
         @foreach (var tipoViolazione in Model)
         {
             <tr>
-                <td>@tipoViolazione.Idviolazione</td>
+                <td>@tipoViolazione.Idviolazione</td> <!-- Nome corretto della proprietà -->
                 <td>@tipoViolazione.Descrizione</td>
             </tr>
         }

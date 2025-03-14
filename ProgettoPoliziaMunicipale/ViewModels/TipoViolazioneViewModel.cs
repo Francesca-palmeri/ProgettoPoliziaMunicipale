@@ -3,6 +3,6 @@
     public class TipoViolazioneViewModel
     {
         public int Idviolazione { get; set; }
-        public string Descrizione { get; set; } = string.Empty;
+        public string? Descrizione { get; set; }
     }
 }

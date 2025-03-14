@@ -9,19 +9,26 @@
 <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Cognome</th>
             <th>Nome</th>
             <th>Codice Fiscale</th>
-            <th>Azioni</th>
+            <th>Indirizzo</th>
+            <th>Cap</th>
+            <th>Città</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var trasgressore in Model)
         {
             <tr>
+                <td>@trasgressore.Idanagrafica</td>
                 <td>@trasgressore.Cognome</td>
                 <td>@trasgressore.Nome</td>
                 <td>@trasgressore.CodFisc</td>
+                <td>@trasgressore.Indirizzo</td>
+				<td>@trasgressore.Cap</td>
+				<td>@trasgressore.Città</td>
             </tr>
         }
     </tbody>

@@ -4,18 +4,25 @@ namespace ProgettoPoliziaMunicipale.ViewModels
 {
     public class VerbaleViewModel
     {
-        public int Idverbale { get; set; }
+        public int IdVerbale { get; set; }
         public DateTime DataViolazione { get; set; }
-        public string IndirizzoViolazione { get; set; } = string.Empty;
-        public string NominativoAgente { get; set; } = string.Empty;
+        public string IndirizzoViolazione { get; set; }
+        public string NominativoAgente { get; set; }
         public DateTime DataTrascrizioneVerbale { get; set; }
         public decimal Importo { get; set; }
         public int DecurtamentoPunti { get; set; }
 
-        public int? Idanagrafica { get; set; }
-        public int? Idviolazione { get; set; }
+        // Nuove proprietà per l'anagrafica
+        public string Cognome { get; set; }
+        public string Nome { get; set; }
+        public string Indirizzo { get; set; }
+        public string Città { get; set; }
+        public string Cap { get; set; }
+        public string CodFisc { get; set; }
 
-        public List<SelectListItem> Trasgressori { get; set; } = new List<SelectListItem>();
-        public List<SelectListItem> Violazioni { get; set; } = new List<SelectListItem>();
+        // Proprietà per il tipo di violazione
+        public int IdViolazione { get; set; }
+        public string DescrizioneViolazione { get; set; }
     }
+
 }

@@ -21,20 +21,26 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var verbale in Model)
-        {
-            <tr>
-                <td>@verbale.IdanagraficaNavigation.Cognome @verbale.IdanagraficaNavigation.Nome</td>
-                <td>@verbale.IdviolazioneNavigation.Descrizione</td>
-                <td>@verbale.DataViolazione.ToShortDateString()</td>
-                <td>@verbale.Importo</td>
-                <td>@verbale.DecurtamentoPunti</td>
-                <td>
-                    <a href="@Url.Action("Contestazione", "Verbale", new { id = verbale.Idverbale })">Contesta</a> 
-                </td>
-            </tr>
-        }
-    </tbody>
+       
+            <tbody>
+                @foreach (var verbale in Model)
+                {
+                    <tr>
+                        <td>@(verbale.IdanagraficaNavigation?.Nome ?? "N/A")</td>
+                        <td>@(verbale.IdanagraficaNavigation?.Cognome ?? "N/A")</td>
+                        <td>@(verbale.IdviolazioneNavigation?.Descrizione ?? "N/A")</td>
+                        <td>@verbale.DataViolazione.ToString("dd/MM/yyyy")</td>
+                        <td>@verbale.Importo.ToString("C")</td>
+                        <td>@verbale.DecurtamentoPunti</td>
+                        <td>
+                          <a href="@Url.Action("Contestazione", "Verbale", new { id = verbale.Idverbale })">Contesta</a> 
+
+                        </td>
+                        
+                    </tr>
+                }
+            </tbody>
+           
 </table>
 
 <a href="@Url.Action("Create", "Verbale")" class="btn btn-primary">Aggiungi Verbale</a>

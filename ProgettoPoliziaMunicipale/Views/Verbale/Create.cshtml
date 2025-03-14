@@ -1,15 +1,71 @@
 ﻿@model VerbaleViewModel
 
-<h2>Nuovo Verbale</h2>
+@{
+    ViewData["Title"] = "Crea un nuovo Verbale";
+}
+
+<h2>@ViewData["Title"]</h2>
 
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label asp-for="DataViolazione" class="control-label"></label>
-        <input asp-for="DataViolazione" class="form-control" />
-        <span asp-validation-for="DataViolazione" class="text-danger"></span>
+        <label for="Cognome">Cognome</label>
+        <input type="text" class="form-control" id="Cognome" name="Cognome" required />
+    </div>
+    <div class="form-group">
+        <label for="Nome">Nome</label>
+        <input type="text" class="form-control" id="Nome" name="Nome" required />
+    </div>
+    <div class="form-group">
+        <label for="Indirizzo">Indirizzo</label>
+        <input type="text" class="form-control" id="Indirizzo" name="Indirizzo" />
+    </div>
+    <div class="form-group">
+        <label for="Città">Città</label>
+        <input type="text" class="form-control" id="Città" name="Città" />
+    </div>
+    <div class="form-group">
+        <label for="CAP">CAP</label>
+        <input type="text" class="form-control" id="CAP" name="CAP" />
+    </div>
+    <div class="form-group">
+        <label for="CodFisc">Codice Fiscale</label>
+        <input type="text" class="form-control" id="CodFisc" name="CodFisc" required />
     </div>
 
-    <!-- Altri campi come IndirizzoViolazione, NominativoAgente, Importo, DecurtamentoPunti, etc. -->
+    <div class="form-group">
+        <label for="DataViolazione">Data Violazione</label>
+        <input type="datetime-local" class="form-control" id="DataViolazione" name="DataViolazione" required />
+    </div>
+    <div class="form-group">
+        <label for="IndirizzoViolazione">Indirizzo Violazione</label>
+        <input type="text" class="form-control" id="IndirizzoViolazione" name="IndirizzoViolazione" required />
+    </div>
+    <div class="form-group">
+        <label for="NominativoAgente">Nominativo Agente</label>
+        <input type="text" class="form-control" id="NominativoAgente" name="NominativoAgente" required />
+    </div>
+    <div class="form-group">
+        <label for="DataTrascrizioneVerbale">Data Trascrizione Verbale</label>
+        <input type="datetime-local" class="form-control" id="DataTrascrizioneVerbale" name="DataTrascrizioneVerbale" required />
+    </div>
+    <div class="form-group">
+        <label for="Importo">Importo</label>
+        <input type="number" class="form-control" id="Importo" name="Importo" step="0.01" required />
+    </div>
+    <div class="form-group">
+        <label for="DecurtamentoPunti">Decurtamento Punti</label>
+        <input type="number" class="form-control" id="DecurtamentoPunti" name="DecurtamentoPunti" required />
+    </div>
 
-    <button type="submit" class="btn btn-primary">Salva</button>
+    <div class="form-group">
+        <label for="IdViolazione">Tipo di Violazione</label>
+        <select asp-for="IdViolazione" class="form-control">
+            <option value="">Seleziona una violazione</option>
+            @foreach (var item in ViewBag.TipiViolazione)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Crea Verbale</button>
 </form>
