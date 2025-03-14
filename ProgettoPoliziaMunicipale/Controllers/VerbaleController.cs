@@ -79,12 +79,16 @@ public class VerbaleController : Controller
             return RedirectToAction(nameof(Index)); // Redirigi alla lista dei verbali
         }
 
-        // In caso di errore, torna al form con i dati
+        // Se il modello non è valido, ripopola ViewBag con i tipi di violazione
+        var tipiViolazione = await _context.TipoViolazioni.ToListAsync();
+        ViewBag.TipiViolazione = new SelectList(tipiViolazione, "Idviolazione", "Descrizione");
+
+        // In caso di errore, torna al form con i dati già inseriti
         return View(viewModel);
     }
 
-    // Azione per visualizzare i dettagli del verbale e la possibilità di contestarlo
-    [HttpGet]
+        // Azione per visualizzare i dettagli del verbale e la possibilità di contestarlo
+        [HttpGet]
     public IActionResult Contestazione(int id)
     {
         var verbale = _context.Verbali

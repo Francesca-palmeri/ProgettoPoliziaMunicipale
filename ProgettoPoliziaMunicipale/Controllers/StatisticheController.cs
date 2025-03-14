@@ -44,7 +44,7 @@ public class StatisticheController : Controller
     public IActionResult ViolazioniPiuDiDieciPunti()
     {
         var violazioni = _context.Verbali
-            .Where(v => v.DecurtamentoPunti > 10)
+            .Where(v => v.DecurtamentoPunti >= 10)
             .Select(v => new { v.DataViolazione, v.NominativoAgente, v.Importo, v.DecurtamentoPunti })
             .ToList();
 
