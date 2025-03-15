@@ -4,6 +4,7 @@ using ProgettoPoliziaMunicipale.Data;
 using ProgettoPoliziaMunicipale.Models;
 using ProgettoPoliziaMunicipale.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 public class VerbaleController : Controller
 {
@@ -28,21 +29,31 @@ public class VerbaleController : Controller
     // Azione per la creazione di un nuovo verbale
     public async Task<IActionResult> Create()
     {
-        // Recupera tutti i tipi di violazione dal database
+        // Recupera tutte le anagrafiche e i tipi di violazione dal database
         var tipiViolazione = await _context.TipoViolazioni.ToListAsync();
 
-        // Passa la lista dei tipi di violazione alla vista tramite ViewBag
-        ViewBag.TipiViolazione = GetTipiViolazione(tipiViolazione, "Idviolazione", "Descrizione");
+        var anagrafiche = await _context.Anagrafiche
+            .Select(a => new
+            {
+                a.Idanagrafica,
+                NomeCompleto = a.Cognome + " " + a.Nome + " " + a.Indirizzo
+            }).ToListAsync();
 
-        return View(new VerbaleViewModel());
+        var anagraficheSelectList = new SelectList(anagrafiche, "Idanagrafica", "NomeCompleto");
+
+        // Crea la SelectList per i tipi di violazione
+        var tipiViolazioneSelectList = new SelectList(tipiViolazione, "Idviolazione", "Descrizione");
+
+        // Passa i dati alla vista tramite ViewBag o ViewModel
+        var viewModel = new VerbaleViewModel
+        {
+            Anagrafiche = anagraficheSelectList,
+            TipiViolazione = tipiViolazioneSelectList, // Passa la lista dei tipi di violazione
+            IdViolazione = 0 // Imposta un valore di default per la violazione
+        };
+
+        return View(viewModel);
     }
-
-    private SelectList GetTipiViolazione(List<TipoViolazione> tipiViolazione, string v1, string v2)
-    {
-        // Crea una SelectList con i dati dei tipi di violazione
-        return new SelectList(tipiViolazione, v1, v2);
-    }
-
 
     // POST: Verbale/Create
     [HttpPost]
@@ -51,63 +62,37 @@ public class VerbaleController : Controller
     {
         if (!ModelState.IsValid)
         {
-            // Aggiungi il codice per loggare o visualizzare gli errori del ModelState
+            // Mostra gli errori di validazione nel console
             foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
             {
-                Console.WriteLine(error.ErrorMessage); // Usa un metodo di logging o di debug appropriato
+                Console.WriteLine(error.ErrorMessage);
             }
 
-           
-
-            // In caso di errore, torna al form con i dati già inseriti
+            // Ritorna alla vista con gli errori
             return View(viewModel);
         }
-        else {        
-            // Creazione nuova anagrafica
-            var anagrafica = new Anagrafica
-            {
-                Cognome = viewModel.Cognome,
-                Nome = viewModel.Nome,
-                Indirizzo = viewModel.Indirizzo,
-                Città = viewModel.Città,
-                Cap = viewModel.Cap,
-                CodFisc = viewModel.CodFisc
-            };
 
-            // Aggiunta della nuova anagrafica al database
-            _context.Add(anagrafica);
-            await _context.SaveChangesAsync();
+        // Usa l'anagrafica selezionata dal form
+        var verbale = new Verbale
+        {
+            DataViolazione = viewModel.DataViolazione,
+            IndirizzoViolazione = viewModel.IndirizzoViolazione,
+            NominativoAgente = viewModel.NominativoAgente,
+            DataTrascrizioneVerbale = viewModel.DataTrascrizioneVerbale,
+            Importo = viewModel.Importo,
+            DecurtamentoPunti = viewModel.DecurtamentoPunti,
+            Idanagrafica = viewModel.IdAnagrafica, // Associa l'anagrafica selezionata
+            Idviolazione = viewModel.IdViolazione, // Associa la violazione selezionata
+        };
 
-            // Creazione del verbale
-            var verbale = new Verbale
-            {
-                DataViolazione = viewModel.DataViolazione,
-                IndirizzoViolazione = viewModel.IndirizzoViolazione,
-                NominativoAgente = viewModel.NominativoAgente,
-                DataTrascrizioneVerbale = viewModel.DataTrascrizioneVerbale,
-                Importo = viewModel.Importo,
-                DecurtamentoPunti = viewModel.DecurtamentoPunti,
-                Idanagrafica = anagrafica.Idanagrafica, // Associa l'anagrafica appena creata
-                Idviolazione = viewModel.IdViolazione // Associa la violazione selezionata
-            };
+        _context.Add(verbale);
+        await _context.SaveChangesAsync();
 
-            // Aggiunta del verbale al database
-            _context.Add(verbale);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index)); // Redirigi alla lista dei verbali
-        }
-
-        // Se il modello non è valido, ripopola ViewBag con i tipi di violazione
-        //var tipiViolazione = await _context.TipoViolazioni.ToListAsync();
-        //ViewBag.TipiViolazione = new SelectList(tipiViolazione, "Idviolazione", "Descrizione");
-
-        // In caso di errore, torna al form con i dati già inseriti
-        //return View(viewModel);
+        return RedirectToAction(nameof(Index));
     }
 
-        // Azione per visualizzare i dettagli del verbale e la possibilità di contestarlo
-        [HttpGet]
+    // Azione per visualizzare i dettagli del verbale e la possibilità di contestarlo
+    [HttpGet]
     public IActionResult Contestazione(int id)
     {
         var verbale = _context.Verbali

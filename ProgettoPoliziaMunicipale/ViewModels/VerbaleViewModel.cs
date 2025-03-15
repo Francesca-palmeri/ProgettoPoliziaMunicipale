@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ProgettoPoliziaMunicipale.ViewModels
 {
@@ -13,16 +14,16 @@ namespace ProgettoPoliziaMunicipale.ViewModels
         public int DecurtamentoPunti { get; set; }
 
         // Nuove proprietà per l'anagrafica
-        public string Cognome { get; set; }
-        public string Nome { get; set; }
-        public string Indirizzo { get; set; }
-        public string Città { get; set; }
-        public string Cap { get; set; }
-        public string CodFisc { get; set; }
+        [Required(ErrorMessage = "Seleziona un trasgressore.")]
+        public int IdAnagrafica { get; set; }  // Deve essere obbligatorio per il verbale
 
         // Proprietà per il tipo di violazione
+        [Required(ErrorMessage = "Seleziona un tipo di violazione.")]
         public int IdViolazione { get; set; }
+
         public string DescrizioneViolazione { get; set; }
+        public SelectList Anagrafiche { get; set; }
+        public SelectList TipiViolazione { get; set; }
     }
 
 }
