@@ -19,8 +19,8 @@ public class VerbaleController : Controller
     public async Task<IActionResult> Index()
     {
         var verbali = await _context.Verbali
-            .Include(v => v.IdanagraficaNavigation) // Include la navigazione per l'anagrafica
-            .Include(v => v.IdviolazioneNavigation) // Include la navigazione per la violazione
+            .Include(v => v.IdanagraficaNavigation) 
+            .Include(v => v.IdviolazioneNavigation)
             .ToListAsync();
 
         return View(verbali);
@@ -81,8 +81,8 @@ public class VerbaleController : Controller
             DataTrascrizioneVerbale = viewModel.DataTrascrizioneVerbale,
             Importo = viewModel.Importo,
             DecurtamentoPunti = viewModel.DecurtamentoPunti,
-            Idanagrafica = viewModel.IdAnagrafica, // Associa l'anagrafica selezionata
-            Idviolazione = viewModel.IdViolazione, // Associa la violazione selezionata
+            Idanagrafica = viewModel.IdAnagrafica, 
+            Idviolazione = viewModel.IdViolazione, 
         };
 
         _context.Add(verbale);
@@ -110,7 +110,7 @@ public class VerbaleController : Controller
 
         if (verbale == null)
         {
-            return NotFound(); // Se il verbale non è trovato, restituisci un errore
+            return NotFound();
         }
 
         return View(verbale);
@@ -122,9 +122,7 @@ public class VerbaleController : Controller
     {
         if (ModelState.IsValid)
         {
-            // Qui puoi implementare la logica per salvare la contestazione nel database
-            // ad esempio in una tabella "Contestazioni", se necessario.
-
+           
             TempData["Successo"] = "Contestazione inviata con successo!";
             return RedirectToAction("Index");
         }
